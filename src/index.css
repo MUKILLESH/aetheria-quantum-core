@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Colors - Restrained */
+  --bg-dark: #030303;
+  --bg-gradient: radial-gradient(circle at 50% 50%, #0a0a0d 0%, #030303 100%);
+  --surface: rgba(10, 10, 12, 0.4);
+  --foreground: #f4f4f5;
+  --muted: #8a8a93;
+  --accent: #00f0ff;
+  --border: rgba(255, 255, 255, 0.08);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 8rem;
+
+  /* Typography System */
+  --font-display: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --text-hero: clamp(3rem, 8vw, 8rem);
+  --text-h2: clamp(2.5rem, 5vw, 5rem);
+  --text-h3: clamp(1.5rem, 3vw, 2.5rem);
+  --text-body: clamp(1rem, 1.2vw, 1.125rem);
+  --text-eyebrow: 0.75rem;
+  --text-tech: 0.65rem;
+  
+  /* Animation */
+  --duration-fast: 300ms;
+  --duration-medium: 600ms;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  overflow-x: hidden;
+  scroll-behavior: auto !important; /* Lenis */
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: var(--spacing-md);
+  display: block;
+}
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-tech);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* App Layout */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.canvas-container {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dom-overlay {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.dom-overlay > * {
+  pointer-events: auto;
+}
+
+/* Global Header */
+.global-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--spacing-lg) 5vw;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
+
+.brand {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--spacing-lg);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Sections */
+.section {
+  width: 100vw;
+  min-height: 100vh;
+  padding: var(--spacing-xxl) 5vw;
+  display: flex;
+  position: relative;
+}
+
+/* 01 HERO */
+.hero {
+  align-items: center;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: var(--text-hero);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+}
+
+/* Hide words for GSAP split-text style entrance */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.hero-word-inner {
+  display: inline-block;
+  transform: translateY(100%);
+}
+
+/* 02 THE CORE */
+.core-section {
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-bottom: 10vh;
+}
+.core-content {
+  text-align: right;
+  max-width: 400px;
+}
+
+/* 03 ENGINEERED */
+.engineered-section {
+  align-items: center;
+}
+
+/* 04 HOW IT WORKS */
+.how-it-works {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  padding: var(--spacing-xl);
+  border-radius: 2px; /* Industrial feel, no rounded corners */
+  max-width: 450px;
+}
+
+/* 05 PRECISION */
+.precision-section {
+  align-items: flex-end;
+  padding-bottom: 20vh;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 800px;
+}
+
+.data-item {
+  border-top: 1px solid var(--border);
+  padding-top: var(--spacing-sm);
+}
+
+.data-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  color: var(--foreground);
+  margin-top: var(--spacing-xs);
+}
+
+/* 06 CONCLUSION */
+.conclusion {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--border);
+  transition: all var(--duration-fast) var(--ease-premium);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--spacing-lg);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--foreground);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-fast) var(--ease-premium);
+  z-index: -1;
+}
+
+.btn:hover {
+  color: var(--bg-dark);
+  border-color: var(--foreground);
+}
+
+.btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Floating Technical UI */
+.floating-ui {
+  position: absolute;
+}
+.ui-top-left { top: 15vh; left: 5vw; }
+.ui-bottom-right { bottom: 10vh; right: 5vw; text-align: right; }
+.ui-bottom-left { bottom: 10vh; left: 5vw; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-content {
+    margin: 0 auto;
+    margin-top: 10vh;
+  }
+  
+  .ui-top-left, .ui-bottom-right, .ui-bottom-left {
+    display: none; /* Simplify on smaller screens */
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .core-content, .how-it-works .glass-panel {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
