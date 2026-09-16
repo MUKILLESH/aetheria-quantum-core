@@ -10,14 +10,13 @@ import * as THREE from 'three'
 export default function Scene() {
   const groupRef = useRef<THREE.Group>(null)
   const { camera, viewport, mouse } = useThree()
-  const [dpr, setDpr] = useState(2)
   const [isLowPerf, setIsLowPerf] = useState(false)
   const isMobile = viewport.width < 5 
 
   // Initial load state
   const loadState = useRef({ opacity: 0, scale: 0 })
   
-  useFrame((state, delta) => {
+  useFrame((state) => {
     // 1. Initial Load Sequence (Fades in over first 1.5 seconds)
     const time = state.clock.elapsedTime
     if (time < 1.5) {
@@ -43,7 +42,6 @@ export default function Scene() {
 
     if (progress < 0.2) {
       // SECTION 01: HERO
-      const p = progress / 0.2
       if (isMobile) {
         targetX = 0
         targetY = 1
@@ -111,7 +109,7 @@ export default function Scene() {
       <color attach="background" args={['#030303']} />
       
       {/* Fog for cinematic depth falloff */}
-      <fogExp2 attach="fog" color="#030303" density={0.03} />
+      <fogExp2 attach="fog" args={['#030303', 0.03]} />
       
       <Environment preset="city" />
       <ambientLight intensity={0.1} />
@@ -134,7 +132,7 @@ export default function Scene() {
         </group>
       </Float>
 
-      <EffectComposer disableNormalPass multisampling={isLowPerf ? 0 : 4}>
+      <EffectComposer multisampling={isLowPerf ? 0 : 4}>
         <Bloom 
           luminanceThreshold={0.5} 
           luminanceSmoothing={0.9} 
